@@ -25,3 +25,30 @@ exports.insertUserOrderDetail = async (req, res, next) => {
       res.status(501).json({ status: "fail", message: "failed to place order" });
     }
   };
+
+  exports.getUserOrderDetails = async (req, res, next) => {
+    const userId = req.user.id;
+    const orders = await orderDetailsModel.getUserOrderDetailsModel({userId});
+    if(orders) {
+      res.status(201).json({ status: "success", OrderData: orders})
+    }
+    else {
+      res.status(501).json({status: "fail", message: "failed to get order details"})
+    } 
+  }
+
+  exports.deleteUserOrder = async (req, res, next) => {
+    const userId = req.user.id
+    const {id} = req.body;
+    const queryField= 
+    {   id,
+        userId
+    }
+    const rowCount = await orderDetailsModel.deleteOrder(queryField);
+    console.log("rowCount= "+rowCount)
+    if (rowCount) {
+         res.status(201).json({ status: "success", message: "deleted from orders" });
+      } else {
+        res.status(501).json({ status: "fail", message: "failed to delete item" });
+      }
+}

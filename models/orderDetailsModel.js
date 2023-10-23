@@ -16,12 +16,23 @@ exports.postUserOrderDetails = async (rowFields) => {
 
 }
 
-exports.getUserOrderDetails = async (userId) => {
+exports.getUserOrderDetailsModel = async (queryField) => {
     return db("order_details")
     .select("*")
-    .where({userId})
+    .where(queryField)
     .then((result) => {
-        result.rows
+      return result;
+    })
+    .catch((error) => null);
+}
+
+exports.deleteOrder = async (queryField) => {
+  return db("order_details")
+    .where(queryField)
+    .del()
+    .then((result) => {
+      console.log("result= " + result);
+      return result;
     })
     .catch((error) => console.log(error));
-}
+};
