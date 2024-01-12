@@ -11,7 +11,7 @@ pg.types.setTypeParser(20, Number)
 const knexConfig = {
     client: 'postgresql',
     connection: {
-        database: 'training_dump2',
+        database: 'bandage_dump',
         user:     'tnluser',
         password: null
     },
