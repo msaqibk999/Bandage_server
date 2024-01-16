@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 const knexObject = require('knex');
 const pg = require('pg');
+require('dotenv').config();
 
 
 pg.types.setTypeParser(20, Number)
@@ -11,8 +12,8 @@ pg.types.setTypeParser(20, Number)
 const knexConfig = {
     client: 'postgresql',
     connection: {
-        connectionString: process.env.DATABASE_URL || 'postgres://saqib:eZiWQ991cIi34pbbqqf1DfpJ2MrL1wc9@dpg-cmii1nf109ks739m1sn0-a.oregon-postgres.render.com:5432/bandage_dump',
-        ssl: { rejectUnauthorized: false }, // add this if you're using SSL
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
     },
     pool: {
         min: 2,

@@ -2,10 +2,11 @@ const authModel = require("../models/authModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const validate = require("../helpers/validation");
+require('dotenv').config();
 
 const { v4: uuidv4 } = require("uuid");
 
-const JWT_SECRET = "hflakhfahakfva";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.register = async (req, res, next) => {
   try {
@@ -66,8 +67,6 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log("email= " + typeof email);
-    console.log("password= " + password);
 
     if (!password || !email) {
       res.status(403).json({

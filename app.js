@@ -6,14 +6,15 @@ const routes = require("./routes/index");
 dotenv.config({ path: './config.env' });
 
 const app = express();
-app.use(cors({ origin: "*" }));
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : [];
+app.use(cors({ origin: allowedOrigins }));
 app.use(morgan("dev"))
 app.use(express.json());
 app.use("/", routes);
 
 const port = 4000;
-
-
 
 
 

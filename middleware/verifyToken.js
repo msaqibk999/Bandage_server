@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "hflakhfahakfva";
+require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET;;
 
 exports.verifyToken = async (req, res, next) => {
     req.user={}
@@ -13,7 +14,7 @@ exports.verifyToken = async (req, res, next) => {
 
   jwt.verify(token, JWT_SECRET, (err, payload) => {
     if(err) {
-        // console.log(err)
+        console.log(err)
         res.status(400).json({ status: "Blocked", message: "Invalid Token" });
     }
     else userId=payload.id
