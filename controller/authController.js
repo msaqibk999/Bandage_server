@@ -46,8 +46,8 @@ exports.register = async (req, res, next) => {
     if (rowCount) {
       if (rowCount === -1) {
         res
-          .status(501)
-          .json({ status: "blocked", message: "user already exists" });
+          .status(400)
+          .json({ status: "Bad request", message: "user already exists" });
       } else {
         res.status(201).json({ status: "success", message: "inserted user" });
       }

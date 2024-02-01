@@ -16,7 +16,7 @@ exports.insertIntoCart = async (req, res, next) => {
     if (rowCount) {
       if (rowCount === -1) {
         res
-          .status(501)
+          .status(400)
           .json({ status: "blocked", message: "item already exists" });
       } else {
         res.status(201).json({ status: "success", message: "added to cart" });
