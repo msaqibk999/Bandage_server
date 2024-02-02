@@ -12,7 +12,13 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 app.use(cors({ origin: allowedOrigins }));
 app.use(morgan("dev"))
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Health check passed' });
+});
+
 app.use("/", routes);
+
 
 const port = 4000;
 
