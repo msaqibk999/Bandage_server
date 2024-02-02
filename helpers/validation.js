@@ -1,7 +1,6 @@
 
-exports.validateEmail = async (email) => {
-    var regx=/^([a-zA-Z0-9\._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/
-    if(!(regx.test(email))) return false;
-    return true;
+exports.validateEmail = (email) => {
+    var emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (email !== '' && email.match(emailFormat)) { return true; }
+    return false;
 };
-

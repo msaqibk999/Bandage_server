@@ -69,19 +69,20 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!password || !email) {
-      res.status(403).json({
+      res.status(400).json({
         status: "blocked",
         message: "Please Enter complete details",
       });
       return;
     }
     if (!validate.validateEmail(email)) {
-      res.status(403).json({
+      res.status(400).json({
         status: "invalid-email",
         message: "Please Enter valid email",
       });
       return;
     }
+
     const user = (await authModel.getUser({ email }))[0];
     if (user) {
       const id = user.id;
@@ -103,14 +104,14 @@ exports.login = async (req, res, next) => {
         });
       }
     } else {
-      res.status(503).json({
+      res.status(400).json({
         status: "unavailable",
         message: "User does not exist, please register",
       });
     }
   } catch (e) {
     console.log(e);
-    res.status(401).json({
+    res.status(500).json({
       status: "fail",
       message: "Login Failed here",
     });
