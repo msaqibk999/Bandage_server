@@ -8,7 +8,8 @@ exports.getUserById = async (id) => {
       return result;
     })
     .catch((error) => {
-      console.log(error);
+      console.log("Error in getting user",error);
+      return null;
     });
 };
 
@@ -23,5 +24,8 @@ exports.setUserById = async (id, firstName, lastName, email, phone, image) => {
       meta:{image}
     })
     .then((result) => result)
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log("Error in updating user",error);
+      return null;
+    });
 };

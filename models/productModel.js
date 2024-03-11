@@ -6,7 +6,10 @@ exports.getAllProducts = async () => {
     .then((result) => {
       return result;
     })
-    .catch((error) => null);
+    .catch((error) => {
+        console.log("Error in getting products list",error);
+        return null;
+    });
 }
 
 exports.getProductById = async (id) => {
@@ -17,5 +20,8 @@ exports.getProductById = async (id) => {
     .then((result) => {
         return result;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+        console.log("Error in getting product",error);
+        return null;
+    });
 }

@@ -4,7 +4,10 @@ exports.saveUserDetails = (rowFields) => {
   return db("users")
     .insert(rowFields)
     .then((result) => result.rowCount)
-    .catch((error) => -1);
+    .catch((error) => {
+      console.log("Error in saving user",error);
+      return null;
+    });
 };
 
 exports.getUser = (queryField) => {
@@ -14,7 +17,10 @@ exports.getUser = (queryField) => {
     .then((result) => {
       return result;
     })
-    .catch((error) => null);
+    .catch((error) => {
+      console.log("Error in getting user",error);
+      return null;
+    });
 };
 
 exports.insertAuth = (email, passwordHash) => {
@@ -23,5 +29,9 @@ exports.insertAuth = (email, passwordHash) => {
       email,
       password: passwordHash,
     })
-    .then((result) => result.rowCount);
+    .then((result) => result.rowCount)
+    .catch((error) => {
+      console.log("Error in inserting user auth",error);
+      return null;
+    });
 };

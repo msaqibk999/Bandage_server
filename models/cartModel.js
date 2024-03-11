@@ -13,8 +13,8 @@ exports.addToCart = async (rowFields) => {
       return result.rowCount;
     })
     .catch((error) => {
-      console.log(error)
-      return -1
+      console.log("Error in adding to cart",error)
+      return null;
     });
 };
 
@@ -27,7 +27,10 @@ exports.getCartProducts = async (userId) => {
     .then((result) => {
       return result.rows;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log("Error in getting cart",error);
+      return null;
+    });
 };
 
 exports.deleteProductFromCart = async (queryField) => {
@@ -35,10 +38,12 @@ exports.deleteProductFromCart = async (queryField) => {
     .where(queryField)
     .del()
     .then((result) => {
-      console.log("result= " + result);
       return result;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log("Error in deleting product from cart",error);
+      return null;
+    });
 };
 
 exports.deleteAllCart = async (queryField) => {
@@ -48,7 +53,10 @@ exports.deleteAllCart = async (queryField) => {
     .then((result) => {
       return result;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log("Error in deleting cart",error);
+      return null;
+    });
 };
 
 exports.updateQuantity = async (queryField) => {
@@ -64,7 +72,7 @@ exports.updateQuantity = async (queryField) => {
       return result.rowCount;
     })
     .catch((error) => {
-      console.log(error)
-      return -1;
+      console.log("Error in updating cart quantity",error)
+      return null;
     });
 };

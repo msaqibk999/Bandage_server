@@ -20,7 +20,7 @@ exports.insertUserOrderDetail = async (req, res, next) => {
       else {
         res.status(501).json({ status: "fail", message: "failed to place order" });
       }} catch (error) {
-        console.error("Error in insertUserOrderDetail:", error);
+        console.error("Error in inserting user's order", error);
         res.status(500).json({ status: "error", message: "Internal server error" });
       }
   };
@@ -35,7 +35,7 @@ exports.insertUserOrderDetail = async (req, res, next) => {
       else {
         res.status(501).json({status: "fail", message: "failed to get order details"})
       }} catch (error) {
-        console.error("Error in getUserOrderDetails:", error);
+        console.error("Error in getting user's orders:", error);
         res.status(500).json({ status: "error", message: "Internal server error" });
       }
   }
@@ -54,7 +54,7 @@ exports.insertUserOrderDetail = async (req, res, next) => {
         } else {
           res.status(501).json({ status: "fail", message: "failed to delete item" });
         }} catch (error) {
-          console.error("Error in deleteUserOrder:", error);
+          console.error("Error in deleting user's order:", error);
           res.status(500).json({ status: "error", message: "Internal server error" });
         }
 }

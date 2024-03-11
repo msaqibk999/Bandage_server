@@ -41,7 +41,6 @@ exports.register = async (req, res, next) => {
       email,
       password: passwordHash,
     });
-    console.log(rowCount);
 
     if (rowCount) {
       if (rowCount === -1) {
