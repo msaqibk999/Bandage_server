@@ -66,6 +66,7 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const time = 3 * 30 * 24;
 
     if (!password || !email) {
       res.status(400).json({
@@ -89,7 +90,7 @@ exports.login = async (req, res, next) => {
 
       if (passwordCompare) {
         const token = jwt.sign({ id }, JWT_SECRET, {
-          expiresIn: "10s",
+          expiresIn: time + "h",
         });
 
         res.status(201).json({
