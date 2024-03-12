@@ -9,7 +9,7 @@ exports.verifyToken = async (req, res, next) => {
     const token = req.headers.token;
     
     if (!token) {
-      return res.status(400).json({ status: "Blocked", message: "Empty Token" });
+      throw new Error("Empty Token");
     }
 
     let userId;
@@ -17,23 +17,29 @@ exports.verifyToken = async (req, res, next) => {
     jwt.verify(token, JWT_SECRET, (err, payload) => {
       if (err) {
         console.error("Error verifying token:", err);
-        return res.status(400).json({ status: "Blocked", message: "Invalid Token" });
+        throw new Error("Invalid Token");
       }
       userId = payload.id;
     });
 
-    if (!userId) return res.status(400).json({ status: "Blocked", message: "Invalid Token" });
+    if (!userId) {
+      throw new Error("Invalid Token");
+    }
 
     const user = await userModel.getUserById({ id: userId });
     
     if (!user || !user[0]) {
-      return res.status(400).json({ status: "Blocked", message: "User does not exist" });
+      throw new Error("User does not exist");
     }
     
     req.user = user[0];
     return next();
   } catch (error) {
-    console.error("Error in verifyToken middleware:", error);
-    return res.status(500).json({ status: "Blocked", message: "Internal Server Error" });
+    console.error("Error in verifyToken middleware:", error.message);
+    let statusCode = 500;
+    if (error.message === "Empty Token" || error.message === "Invalid Token") {
+      statusCode = 400;
+    }
+    return res.status(statusCode).json({ status: "Blocked", message: error.message });
   }
 };

@@ -89,7 +89,7 @@ exports.login = async (req, res, next) => {
 
       if (passwordCompare) {
         const token = jwt.sign({ id }, JWT_SECRET, {
-          expiresIn: "10h",
+          expiresIn: "10s",
         });
 
         res.status(201).json({
