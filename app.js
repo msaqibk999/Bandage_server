@@ -3,6 +3,8 @@ const dotenv=require('dotenv')
 const morgan= require('morgan')
 const cors = require("cors");
 const routes = require("./routes/index");
+const https = require('https');
+
 dotenv.config({ path: './config.env' });
 
 const app = express();
@@ -18,6 +20,10 @@ app.get('/', (req, res) => {
 });
 
 app.use("/", routes);
+
+setInterval(() => {
+  https.get(process.env.base_url);
+},5 * 60 * 1000);
 
 
 const port = 4000;
