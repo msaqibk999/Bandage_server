@@ -11,7 +11,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 exports.register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    console.log(email);
 
     if (!username || !password || !email) {
       res.status(403).json({
@@ -29,6 +28,12 @@ exports.register = async (req, res, next) => {
       return;
     }
 
+    const user = (await authModel.getUser({ email }))[0];
+    if (user) {
+      res.status(400).json({ status: "Bad request", message: "user already exists" });
+      return;
+    }
+
     const passwordHash = await bcrypt.hash(password, 12);
     const id = uuidv4();
     const nameArr = username.split(" ")
@@ -42,14 +47,8 @@ exports.register = async (req, res, next) => {
       password: passwordHash,
     });
 
-    if (rowCount) {
-      if (rowCount === -1) {
-        res
-          .status(400)
-          .json({ status: "Bad request", message: "user already exists" });
-      } else {
+    if (rowCount > 0) {
         res.status(201).json({ status: "success", message: "inserted user" });
-      }
     } else {
       res
         .status(501)
