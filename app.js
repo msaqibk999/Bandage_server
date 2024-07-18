@@ -34,6 +34,7 @@ const totalCpus = os.cpus().length;
 
             setInterval(() => {
             https.get(process.env.base_url);
+            https.get(process.env.ping_chat_app_url);
             },5 * 60 * 1000);
 
             const port = 4000;
